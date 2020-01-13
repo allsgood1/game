@@ -1,4 +1,53 @@
 body {
-    background-color: rgb(223, 53, 53);
+    background-color: rgb(59, 59, 59);
     font-family: cursive;
+}
+
+
+.row {
+    /* this is a selector that moves all the rows as one */
+    float: left;
+    height: 100px;
+}
+
+#board {
+    padding-top: 3em;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.top {
+    border-bottom: 3px solid rgb(255, 255, 255);
+    height: 100px;
+    width: 100px;
+}
+
+.center {
+    /* border: 3px solid rgb(9, 0, 128); */
+    height: 100px;
+    width: 100px;
+}
+
+.middle {
+    /* border: 3px solid green; */
+    height: 100px;
+    width: 100px;
+}
+
+.bottom {
+    height: 100px;
+    width: 100px;
+    border-top: 3px solid rgb(248, 0, 0);
+}
+
+.right {
+    border-left: 3px solid rgb(221, 218, 12);
+    height: 100px;
+    width: 100px;
+}
+
+.left {
+    height: 100px;
+    width: 100px;
+    border-right: 3px solid rgb(248, 0, 236)
 }
