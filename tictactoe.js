@@ -1,31 +1,103 @@
-let btn = document.querySelector('button');
+// *------- constants -----*
+
+const winningCombos = [
+
+    [0, 1, 2],
+
+    [3, 4, 5],
+
+    [6, 7, 8],
+
+    [0, 3, 6],
+
+    [1, 4, 7],
+
+    [2, 5, 8],
+
+    [0, 4, 8],
+
+    [2, 4, 6]
+
+]
+
+// *------ app's state (variables) ----*
+
+let board;
+
+let turn = 'X';
+
+let win;
+
+let square;
 
 
-let turns = 0
-let cells = document.querySelectorAll(".row")
 
-cells.forEach(function (cell) {
-    cell.addEventListener("click", cellClicked)
-}
-)
+// *--------cached element references ------*
 
-function cellClicked(e) {
-    if (turns % 2 == 0) {
+const squares = Array.from(document.querySelectorAll('#board div'));
 
-        e.target.textContent = 'X'
-        turns++
-    }
-    else {
-        e.target.textContent = 'O'
-        turns++
-    }
 
-    // find a check-when function
-    //function that stops game after 9 turns
-    //outside of everything else, write another function that uses the assigned values to each square and can tell if someone wins if the write combination of values is taken by X or O
-}
+/*--------event listeners ---------*/
 
-btn.addEventListener("click", function () {
-    alert("u suck");
-});
+document.getElementById('board').addEventListener('click', handleTurn);
 
+const messages = document.querySelector('h2');
+
+document.getElementById('reset-button').addEventListener('click', init);
+
+/*------ functions -----*/
+
+function getWinner() {
+
+    let winner = null;
+    winningCombos.forEach(function (combo, index) {
+
+        if (board[combo[0]] && board[combo[0]] === board[combo[1]] && board[combo[0]] === board[combo[2]]) winner = board[combo[0]];
+    });
+
+    return winner ? winner : board.includes('') ? null : 'T';
+
+    
+};
+
+function handleTurn() {
+    let idx = squares.findIndex(function (square) {
+        return square === event.target;
+    });
+    board[idx] = turn;
+    turn = turn === 'X' ? 'O' : 'X';
+    win = getWinner();
+    render();
+};
+
+function init() {
+    board = [
+        '', '', '',
+        '', '', '',
+        '', '', ''
+    ];
+    render();
+};
+
+function render() {
+    board.forEach(function (mark, index) {
+        squares[index].textContent = mark;
+    });
+    
+    messages.textContent = win === 'T' ? `tik tok toe hard /:` : win ? `${win} wins the game!` : `It's ${turn}'s turn!`;
+};
+
+
+init();
+
+
+
+
+
+
+
+// win = board[0] && board[0] === board[1] && board[0] === board[2] ? board[0] : null;
+
+
+
+// it recognizes a winning combo, but it's not checking for it, see if the call functions need to be rearranged
